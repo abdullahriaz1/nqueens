@@ -1,0 +1,18 @@
+Citations:
+For splitting the string by spaces, I used sstream as shown in https://www.geeksforgeeks.org/how-to-split-a-string-in-cc-python-and-java/
+
+The algorithm:
+For solving n-queens, I first created a vector<vector<int>> board where ints are 0:empty and 1:queen. I filled this in with the given queens.
+I passed this board to my n-queens function, which would then pass it to my solve_s (solve with stack) function. 
+The stack used is a stack<class Recur>. Class Recur is a class which contains a board and a row number. 
+Using this we create a Recur with the starting board at row 0 and push it to the stack.
+In a while loop, the stack pops a board which is partially filled, and the row that we currently want to fill. 
+First, we check if the row provided has exceeded the board size, in which case we have successfully filled each row.
+If we still have rows to fill, it checks if this row already has a queen, in which case it pushes a Recur to the stack with the same board and row + 1 (the next row).
+If the row is not filled, it will loop through each column in the row, and check if it is safe to place it. 
+The safe function accomplishes this by checking every space in the board and seeing if there is a queen, and if there is a queen, it checks if it is in the same column, row, or diagonal of the given space.
+Once it is assured to be safe, a queen is placed in a new board which is then placed with a Recur and with row + 1 and pushed to the stack. 
+Thus, the it will keep pushing to the stack until the last column of the row and then it will stop, and move on to the next iteration of the loop.
+Backtracking is thus achieved because if a space is not safe, all further recursions (in this case stack pushes) are prevented.
+The first fully filled board will be returned to n-queens and then returned to main.
+In main, it will iterate through each column and pull the queens, organize them in a string, and store them in outFile.
